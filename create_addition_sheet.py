@@ -3,7 +3,7 @@ from fpdf import FPDF
 from datetime import datetime
 
 # Step 1: Generate 50 random single-digit addition problems
-problems = [(random.randint(0, 9), random.randint(0, 9)) for _ in range(50)]
+problems = [(random.randint(1, 10), random.randint(1, 10)) for _ in range(50)]
 
 # Step 2: Convert to PDF
 class PDF(FPDF):
@@ -19,9 +19,11 @@ class PDF(FPDF):
     def add_problem(self, x, y, a, b):
         self.set_xy(x, y)
         self.set_font('Arial', '', 12)
-        self.cell(20, 10, str(a), 0, 2, 'C')
-        self.cell(20, 10, f"+ {b}", 0, 2, 'C')
-        self.cell(20, 10, "______", 0, 2, 'C')
+        self.cell(20, 10, str(a), 0, 2, 'R')  # Right-aligned top number
+        self.set_font('Arial', 'U', 12)  # Set underline for the bottom number
+        self.cell(20, 10, f"+ {b}", 0, 2, 'R')  # Right-aligned bottom number with underline
+        self.set_font('Arial', '', 12)  # Reset to no underline for the answer space
+        self.cell(20, 10, "", 0, 2, 'C')  # Empty space for the answer
         self.ln(5)
 
 pdf = PDF()
