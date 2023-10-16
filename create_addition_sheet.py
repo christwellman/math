@@ -9,7 +9,7 @@ problems = [(random.randint(1, 10), random.randint(1, 10)) for _ in range(50)]
 class PDF(FPDF):
     def header(self):
         self.set_font('Arial', 'B', 12)
-        self.cell(0, 10, 'Single Digit Addition Worksheet', 0, 1, 'C')
+        self.cell(0, 10, 'Henry\'s Single Digit Addittion Minute Math', 0, 1, 'C')
 
     def footer(self):
         self.set_y(-15)
