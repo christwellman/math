@@ -2,14 +2,28 @@ import random
 from fpdf import FPDF
 from datetime import datetime
 
-# Step 1: Generate 50 random single-digit addition problems
-problems = [(random.randint(1, 10), random.randint(1, 10)) for _ in range(50)]
+# Prompt the user for input
+lowest_num = int(input("Enter the lowest number: "))
+highest_num = int(input("Enter the highest number: "))
+operation = input("Do you want addition or subtraction problems? (Enter 'addition' or 'subtraction'): ")
+
+# Step 1: Generate 50 random problems based on user input
+if operation == "addition":
+    problems = [(random.randint(lowest_num, highest_num), random.randint(lowest_num, highest_num)) for _ in range(50)]
+    symbol = "+"
+elif operation == "subtraction":
+    problems = [(random.randint(lowest_num, highest_num), random.randint(1, lowest_num)) for _ in range(50)]
+    symbol = "-"
+else:
+    print('Error couldn\'t resolve operation. Please specify either "addition" or "subtraction"')
+
+title = (f'Henry\'s Single Digit {operation} Minute Math')
 
 # Step 2: Convert to PDF
 class PDF(FPDF):
     def header(self):
         self.set_font('Arial', 'B', 12)
-        self.cell(0, 10, 'Henry\'s Single Digit Addittion Minute Math', 0, 1, 'C')
+        self.cell(0, 10, title.title(), 0, 1, 'C')
 
     def footer(self):
         self.set_y(-15)
@@ -21,7 +35,7 @@ class PDF(FPDF):
         self.set_font('Arial', '', 12)
         self.cell(20, 10, str(a), 0, 2, 'R')  # Right-aligned top number
         self.set_font('Arial', 'U', 12)  # Set underline for the bottom number
-        self.cell(20, 10, f"+ {b}", 0, 2, 'R')  # Right-aligned bottom number with underline
+        self.cell(20, 10, f"{symbol} {b}", 0, 2, 'R')  # Right-aligned bottom number with underline
         self.set_font('Arial', '', 12)  # Reset to no underline for the answer space
         self.cell(20, 10, "", 0, 2, 'C')  # Empty space for the answer
         self.ln(5)
@@ -44,4 +58,4 @@ for i, (a, b) in enumerate(problems):
 
 # Step 3: Output with date in filename
 current_date = datetime.now().strftime("%Y%m%d")
-pdf.output(f'addition_worksheet_{current_date}.pdf')
+pdf.output(f'{operation}_worksheet_{current_date}.pdf')
