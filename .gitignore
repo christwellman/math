@@ -3,3 +3,4 @@ venv/
 
 # output files
 *_worksheet_*.pdf
+.DS_Store
