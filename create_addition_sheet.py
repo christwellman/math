@@ -3,7 +3,7 @@ from fpdf import FPDF
 from datetime import datetime
 
 # Constants
-NUM_PROBLEMS = 50
+NUM_PROBLEMS = 60
 COL_SPACING = 40
 ROW_SPACING = 50
 STUDENT_NAME = 'Henry'
